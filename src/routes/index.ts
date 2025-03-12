@@ -1,6 +1,7 @@
 import * as express from "express";
 import {errorHandler} from "../utils";
 import {CoursesRoutes} from "./courses.routes";
+import {StudentsRoutes} from "./students.routes";
 
 function nestedRoutes(this: any, path, configure) {
     const router = express.Router({mergeParams: true});
@@ -20,6 +21,10 @@ export const routes = (app: express.Application) => {
 
         app['prefix']('/courses', data => {
             CoursesRoutes(data)
+        });
+
+        app['prefix']('/students', data => {
+            StudentsRoutes(data)
         });
     })
 

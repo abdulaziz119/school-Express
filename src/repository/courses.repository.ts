@@ -1,6 +1,6 @@
 import {pgPoolQuery} from "../database";
 import {
-    CoursesModel,
+    CoursesModel, PaginationParams,
     PaginationStatusParams
 } from "../models";
 
@@ -54,17 +54,6 @@ export class CoursesRepository {
         }
     }
 
-    static async getById(id:number):Promise<CoursesModel>  {
-        try {
-            const query = 'SELECT id, title, description, duration, status FROM courses WHERE id = $1 AND deleted_at IS NULL';
-            const result = await pgPoolQuery(query, [id]);
-            return result.rows[0];
-        } catch (error) {
-            // logger.error(`Error in CoursesRepository.findById: ${error}`);
-            throw error;
-        }
-    }
-
     static async create(params: CoursesModel):Promise<CoursesModel>  {
         try {
             const { title, description, duration, status = 1 } = params;
@@ -104,7 +93,7 @@ export class CoursesRepository {
         return result.rows[0];
     }
 
-    static async delete(id) {
+    static async delete(id: number) {
         try {
             const query = 'UPDATE courses SET deleted_at = CURRENT_TIMESTAMP WHERE id = $1 AND deleted_at IS NULL';
             const result = await pgPoolQuery(query, [id]);
@@ -115,22 +104,32 @@ export class CoursesRepository {
         }
     }
 
-    static async getPopularCourses(limit = 5) {
+    static async getPopularCourses(params: PaginationParams ) {
         try {
             const query = `
-                SELECT c.id, c.title, c.description, c.duration, COUNT(e.id) AS student_count
+                SELECT
+                    c.id,
+                    c.title,
+                    c.description,
+                    c.duration,
+                    COUNT(e.id) AS student_count,
+                    COUNT(*) OVER() as total_count
                 FROM courses c
-                JOIN enrollments e ON c.id = e.course_id
-                WHERE c.deleted_at IS NULL AND c.status = 1 AND e.status = 1
+                         LEFT JOIN enrollments e ON c.id = e.course_id AND e.status = 1
+                WHERE c.deleted_at IS NULL AND c.status = 1
                 GROUP BY c.id
                 ORDER BY student_count DESC
-                LIMIT $1
+                    LIMIT $1 OFFSET $2;
             `;
 
-            const result = await pgPoolQuery(query, [limit]);
-            return result.rows;
+            const limit = params.limit || 10;
+            const page = params.page || 1;
+            const offset = (page - 1) * limit;
+
+            const result = await pgPoolQuery(query, [limit, offset]);
+
+            return  result.rows
         } catch (error) {
-            // logger.error(`Error in CoursesRepository.getPopularCourses: ${error}`);
             throw error;
         }
     }

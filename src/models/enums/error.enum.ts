@@ -1,6 +1,7 @@
 export enum ErrorEnum {
     NotFound = 'Not found',
     EmailUsed = 'This email is available',
+    CoursesCreateAd = 'Failed to create courses',
     RoleId = 'The role_id was entered incorrectly',
     CreateNotAdmin = 'Create not admin',
     NotFoundLogin = 'Incorrect login information',

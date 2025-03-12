@@ -8,3 +8,10 @@ export interface PaginationStatusParams {
     limit: number;
     status?: number
 }
+
+export interface PaginationStudentParams {
+    page: number;
+    limit: number;
+    status?: number;
+    email?: string;
+}

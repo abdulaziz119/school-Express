@@ -1,9 +1,8 @@
 import {Response } from 'express';
 import {StatusCodes} from "http-status-codes";
 import {
-    BaseStatusEnum,
     CoursesModel,
-    ErrorEnum,
+    ErrorEnum, PaginationParams,
     PaginationStatusParams,
     ValidatedRequest,
     ValidatedRequestBody,
@@ -19,7 +18,7 @@ export class CoursesController {
         try {
             const result = await CoursesRepository.create(req.body)
 
-            if (!result) return ErrorService.error(res, {}, StatusCodes.NOT_FOUND, ErrorEnum.FailedToCreateAd)
+            if (!result) return ErrorService.error(res, {}, StatusCodes.NOT_FOUND, ErrorEnum.CoursesCreateAd)
 
             return ResponseHelper.success(res, result,StatusCodes.CREATED)
         } catch (error) {
@@ -78,4 +77,23 @@ export class CoursesController {
             return ErrorService.error(res, error);
         }
     }
+
+    static async getPopularCourses(req: ValidatedRequest<ValidatedRequestQuery<PaginationParams>>, res) {
+        try {
+            const result:any  = await CoursesRepository.getPopularCourses(req.query)
+
+            let [page, limit] = [req.query.page ?? 1, req.query.limit ?? 20]
+
+            let count: number = result[0] ? Number(result[0].count) : 0
+
+            result.map(item => {
+                delete item.count
+            })
+
+            return ResponseHelper.pagination(res, result, page, limit, count)
+        } catch (error) {
+            return ErrorService.error(res, error)
+        }
+    }
+
 }
