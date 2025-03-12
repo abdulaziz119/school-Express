@@ -1,1 +1,1 @@
-
+export * from "./courses.controller"

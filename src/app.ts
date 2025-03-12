@@ -1,3 +1,5 @@
+import {routes} from "./routes";
+
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
@@ -33,7 +35,7 @@ class ServerModule {
             next();
         })
         // this.app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swagger, { "showExplorer": true }))
-        // routes(this.app);
+        routes(this.app);
         this.http.listen(
             this.port,
             console.log(`Server listening on: http://localhost:${this.port}`)

@@ -1,1 +1,5 @@
 export * from "./pagination.params"
+export * from "./validatedRequest.model"
+export * from "./validatedRequestBody.model"
+export * from "./validatedRequestParams.model"
+export * from "./validatedRequestQuery.model"
