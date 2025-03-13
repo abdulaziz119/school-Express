@@ -15,3 +15,11 @@ export interface PaginationStudentParams {
     status?: number;
     email?: string;
 }
+
+export interface PaginationEnrollmentParams {
+    page: number;
+    limit: number;
+    status?: number;
+    student_id?: number;
+    course_id?: number;
+}

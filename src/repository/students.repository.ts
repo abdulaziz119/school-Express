@@ -40,7 +40,8 @@ export class StudentsRepository {
 
             return result.rows;
         } catch (error) {
-            throw error;
+            console.error('Error fetching students:', error);
+            throw new Error('Error fetching students');
         }
     }
 
@@ -50,8 +51,8 @@ export class StudentsRepository {
             const result = await pgPoolQuery(query, [id]);
             return result.rows[0];
         } catch (error) {
-            // logger.error(`Error in StudentsRepository.findById: ${error}`);
-            throw error;
+            console.error('Error fetching student:', error);
+            throw new Error('Error fetching student');
         }
     }
 
@@ -68,8 +69,8 @@ export class StudentsRepository {
             const result = await pgPoolQuery(query, [first_name, last_name, email, phone, status]);
             return result.rows[0];
         } catch (error) {
-            // logger.error(`Error in StudentsRepository.create: ${error}`);
-            throw error;
+            console.error('Error creating student:', error);
+            throw new Error('Error creating student');
         }
     }
 
@@ -97,13 +98,12 @@ export class StudentsRepository {
 
     static async delete(id: number) {
         try {
-            // Soft delete
             const query = 'UPDATE students SET deleted_at = CURRENT_TIMESTAMP WHERE id = $1 AND deleted_at IS NULL';
             const result = await pgPoolQuery(query, [id]);
             return result.rowCount > 0;
         } catch (error) {
-            // logger.error(`Error in StudentsRepository.delete: ${error}`);
-            throw error;
+            console.error('Error deleting student:', error);
+            throw new Error('Error deleting student');
         }
     }
 
@@ -123,8 +123,8 @@ export class StudentsRepository {
             console.log(result.rows,'result.rows')
             return result.rows;
         } catch (error) {
-            // logger.error(`Error in StudentsRepository.getStudentCourses: ${error}`);
-            throw error;
+            console.error('Error fetching student courses:', error);
+            throw new Error('Error fetching student courses');
         }
     }
 }

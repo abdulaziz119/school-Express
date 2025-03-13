@@ -38,8 +38,8 @@ export class CoursesRepository {
 
           return result.rows;
       }catch (error) {
-      // logger.error(`Error in CoursesRepository.getAll: ${error}`);
-      throw error;
+          console.log('Error in CoursesRepository.getAll: ', error);
+          throw new Error('Error in CoursesRepository.getAll');
       }
     }
 
@@ -49,8 +49,8 @@ export class CoursesRepository {
             const result = await pgPoolQuery(query, [id]);
             return result.rows[0];
         } catch (error) {
-            // logger.error(`Error in CoursesRepository.findById: ${error}`);
-            throw error;
+            console.log('Error in CoursesRepository.getOne: ', error);
+            throw new Error('Error in CoursesRepository.getOne');
         }
     }
 
@@ -67,8 +67,8 @@ export class CoursesRepository {
             const result = await pgPoolQuery(query, [title, description, duration, status]);
             return result.rows[0];
         } catch (error) {
-            // logger.error(`Error in CoursesRepository.create: ${error}`);
-            throw error;
+            console.log('Error in CoursesRepository.create: ', error);
+            throw new Error('Error in CoursesRepository.create');
         }
     }
 
@@ -99,8 +99,8 @@ export class CoursesRepository {
             const result = await pgPoolQuery(query, [id]);
             return result.rowCount > 0;
         } catch (error) {
-            // logger.error(`Error in CoursesRepository.delete: ${error}`);
-            throw error;
+            console.log('Error in CoursesRepository.delete: ', error);
+            throw new Error('Error in CoursesRepository.delete');
         }
     }
 
@@ -130,7 +130,8 @@ export class CoursesRepository {
 
             return  result.rows
         } catch (error) {
-            throw error;
+            console.log('Error in CoursesRepository.getPopularCourses: ', error);
+            throw new Error('Error in CoursesRepository.getPopularCourses');
         }
     }
 }

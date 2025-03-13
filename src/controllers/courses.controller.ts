@@ -18,7 +18,7 @@ export class CoursesController {
         try {
             const result = await CoursesRepository.create(req.body)
 
-            if (!result) return ErrorService.error(res, {}, StatusCodes.NOT_FOUND, ErrorEnum.CoursesCreateAd)
+            if (!result) return ErrorService.error(res, {}, StatusCodes.NOT_FOUND, ErrorEnum.CourseCreateFailed)
 
             return ResponseHelper.success(res, result,StatusCodes.CREATED)
         } catch (error) {
@@ -30,13 +30,15 @@ export class CoursesController {
     static async getOne(req: ValidatedRequest<ValidatedRequestParams<{id: number}>>, res: Response) {
         try {
             const result = await CoursesRepository.getOne(req.params.id)
+            if (!result) return ErrorService.error(res, {}, StatusCodes.NOT_FOUND, ErrorEnum.CourseNotFound)
+
             return ResponseHelper.success(res, result,StatusCodes.OK)
         } catch (error) {
             return ErrorService.error(res, error)
         }
     }
 
-    static async getAll(req: ValidatedRequest<ValidatedRequestQuery<PaginationStatusParams>>, res) {
+    static async getAll(req: ValidatedRequest<ValidatedRequestQuery<PaginationStatusParams>>, res: Response) {
         try {
             const result  = await CoursesRepository.getAll(req.query)
 
@@ -56,10 +58,11 @@ export class CoursesController {
 
 
 
-    static async update(req: ValidatedRequest<ValidatedRequestBody<CoursesModel>>, res) {
+    static async update(req: ValidatedRequest<ValidatedRequestBody<CoursesModel>>, res: Response) {
         try {
             req.body.id = req.params.id;
             let data = await CoursesRepository.update(req.body);
+            if (!data) return ErrorService.error(res, {}, StatusCodes.NOT_FOUND, ErrorEnum.CourseUpdateFailed)
 
             return res.send(data);
         } catch (error) {
@@ -67,18 +70,16 @@ export class CoursesController {
         }
     }
 
-    static async delete(req: ValidatedRequest<ValidatedRequestParams<{ id: number }>>, res) {
+    static async delete(req: ValidatedRequest<ValidatedRequestParams<{ id: number }>>, res: Response) {
         try {
-
             await CoursesRepository.delete(req.params.id);
             return res.send({ success: true });
-
         } catch (error) {
             return ErrorService.error(res, error);
         }
     }
 
-    static async getPopularCourses(req: ValidatedRequest<ValidatedRequestQuery<PaginationParams>>, res) {
+    static async getPopularCourses(req: ValidatedRequest<ValidatedRequestQuery<PaginationParams>>, res: Response) {
         try {
             const result:any  = await CoursesRepository.getPopularCourses(req.query)
 

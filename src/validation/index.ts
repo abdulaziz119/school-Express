@@ -1,3 +1,5 @@
 export * from "./other.validation"
 export * from "./courses.validation"
 export * from "./students.validation"
+export * from "./enrollments.validation"
+export * from "./progress.validation"
