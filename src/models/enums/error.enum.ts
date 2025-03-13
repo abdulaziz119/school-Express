@@ -1,4 +1,5 @@
 export enum ErrorEnum {
+    invalidData = 'Incorrect data!',
     // Common Errors
     NotFound = 'Resource not found',
     ValidationError = 'Validation error occurred',
