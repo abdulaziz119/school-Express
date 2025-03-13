@@ -14,10 +14,8 @@ class ServerModule {
 
     constructor() {
         this.host = process.env.HOST;
-        this.port = process.env.PORT
+        this.port = process.env.PORT_FRONTEND
         this.start();
-        // createConfig();
-        // CreateData();
         console.log(new Date())
     }
 
@@ -43,7 +41,5 @@ class ServerModule {
     }
 
 }
-
-// localhost
 
 new ServerModule();

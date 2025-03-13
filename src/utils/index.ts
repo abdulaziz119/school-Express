@@ -1,3 +1,6 @@
 export * from "./error.service"
 export * from "./response.helper"
 export * from "./error-handler"
+export * from "./check-token.service"
+export * from "./authorization.service"
+export * from "./students.service"

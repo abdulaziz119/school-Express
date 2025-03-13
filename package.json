@@ -6,7 +6,8 @@
     "build": "db-migrate up && tsc",
     "up": "db-migrate up --env pg",
     "down": "db-migrate down --env pg",
-    "start": "db-migrate up && ts-node src/app.ts",
+    "start:dashboard": "db-migrate up && ts-node src/dashboard/app.ts",
+    "start:frontend": "db-migrate up && ts-node src/frontend/app.ts",
     "watch": "nodemon -e ts  --exec ts-node src/app.ts"
   },
   "keywords": [],

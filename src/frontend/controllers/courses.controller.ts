@@ -2,14 +2,14 @@ import {Response } from 'express';
 import {StatusCodes} from "http-status-codes";
 import {
     CoursesModel,
-    ErrorEnum, PaginationParams,
-    PaginationStatusParams,
+    ErrorEnum, PaginationParams, PaginationStatusParams,
     ValidatedRequest,
     ValidatedRequestBody,
-    ValidatedRequestParams, ValidatedRequestQuery
-} from "../models";
-import {CoursesRepository} from "../repository";
-import {ErrorService, ResponseHelper} from "../utils";
+    ValidatedRequestParams,
+    ValidatedRequestQuery
+} from "../../models";
+import {CoursesRepository} from "../../repository";
+import {ErrorService, ResponseHelper} from "../../utils";
 
 
 export class CoursesController {

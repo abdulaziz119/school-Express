@@ -1,7 +1,7 @@
 import * as express from "express";
 import {createValidator} from "express-joi-validation";
-import {enrollmentQuerySchema, enrollmentSchema, id_joi, updateProgressSchema} from "../validation";
 import {EnrollmentsController} from "../controllers";
+import {enrollmentQuerySchema, enrollmentSchema, id_joi, updateProgressSchema} from "../../validation";
 const validator = createValidator({passError: true});
 
 export const EnrollmentsRoutes = (app: express.Application) => {

@@ -1,7 +1,7 @@
 import * as express from "express";
 import {createValidator} from "express-joi-validation";
-import {CourseSchema, id_joi, params_joi} from "../validation";
 import {CoursesController} from "../controllers";
+import {CourseSchema, id_joi, params_joi} from "../../validation";
 const validator = createValidator({passError: true});
 
 export const CoursesRoutes = (app: express.Application) => {

@@ -1,30 +1,17 @@
 import { Response } from 'express';
 import { StatusCodes } from "http-status-codes";
 import {
-    ErrorEnum,
-    PaginationStudentParams,
+    ErrorEnum, PaginationStudentParams,
     StudentModel,
     ValidatedRequest,
     ValidatedRequestBody,
     ValidatedRequestParams,
     ValidatedRequestQuery
-} from "../models";
-import { ErrorService, ResponseHelper } from "../utils";
-import { StudentsRepository } from "../repository";
+} from "../../models";
+import {StudentsRepository} from "../../repository";
+import {ErrorService, ResponseHelper} from "../../utils";
 
 export class StudentsController {
-    static async create(req: ValidatedRequest<ValidatedRequestBody<StudentModel>>, res: Response) {
-        try {
-            const result = await StudentsRepository.create(req.body);
-            if (!result) {
-                return ErrorService.error(res, {}, StatusCodes.BAD_REQUEST, ErrorEnum.StudentCreateFailed);
-            }
-
-            return ResponseHelper.success(res, result, StatusCodes.CREATED);
-        } catch (error) {
-            return ErrorService.error(res, error);
-        }
-    }
 
     static async getOne(req: ValidatedRequest<ValidatedRequestParams<{ id: number }>>, res: Response) {
         try {

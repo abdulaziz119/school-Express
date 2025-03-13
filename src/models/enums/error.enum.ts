@@ -1,5 +1,7 @@
 export enum ErrorEnum {
     invalidData = 'Incorrect data!',
+    Unauthorized = 'Unauthorized',
+    equalPasswords = 'password is incorrect',
     // Common Errors
     NotFound = 'Resource not found',
     ValidationError = 'Validation error occurred',

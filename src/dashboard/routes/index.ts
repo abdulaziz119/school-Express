@@ -1,8 +1,8 @@
 import * as express from "express";
-import {errorHandler} from "../utils";
 import {CoursesRoutes} from "./courses.routes";
 import {StudentsRoutes} from "./students.routes";
 import {EnrollmentsRoutes} from "./enrollments.routes";
+import {errorHandler} from "../../utils";
 
 function nestedRoutes(this: any, path, configure) {
     const router = express.Router({mergeParams: true});

@@ -7,9 +7,9 @@ import {
     ValidatedRequest,
     ValidatedRequestBody,
     ValidatedRequestParams, ValidatedRequestQuery
-} from "../models";
-import { EnrollmentsRepository} from "../repository";
-import {ErrorService, ResponseHelper} from "../utils";
+} from "../../models";
+import { EnrollmentsRepository} from "../../repository";
+import {ErrorService, ResponseHelper} from "../../utils";
 
 
 

@@ -56,6 +56,17 @@ export class StudentsRepository {
         }
     }
 
+    static async getOneByEmail(email: string):Promise<StudentModel>  {
+        try {
+            const query = 'SELECT id, first_name, last_name, email, phone, status FROM students WHERE email = $1 AND deleted_at IS NULL';
+            const result = await pgPoolQuery(query, [email]);
+            return result.rows[0];
+        } catch (error) {
+            console.error('Error fetching student:', error);
+            throw new Error('Error fetching student');
+        }
+    }
+
     static async create(params: StudentModel):Promise<StudentModel>  {
         try {
             const { first_name, last_name, email, phone, status = 1 } = params;

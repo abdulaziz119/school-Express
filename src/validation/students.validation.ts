@@ -46,6 +46,24 @@ export const StudentSchema = Joi.object({
         })
 });
 
+
+export const StudentLoginSchema = Joi.object({
+    email: Joi.string()
+        .email()
+        .required()
+        .messages({
+            'string.empty': 'Email is required',
+            'string.email': 'Please enter a valid email address'
+        }),
+
+    phone: Joi.string()
+        .pattern(phoneRegex)
+        .messages({
+            'string.pattern.base': 'Please enter a valid Uzbekistan phone number (998xxxxxxxxx)'
+        })
+        .optional(),
+});
+
 export const studentQuerySchema = Joi.object({
     page: Joi.number()
         .min(1)
